@@ -1,5 +1,4 @@
 import React from "react";
-import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItem from "@mui/material/ListItem";
@@ -7,14 +6,10 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
+import useCurrencyState from "../../state/currencyState"
 
-function HorseDataList({ horseList }) {
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
-
-  const handleListItemClick = (event, index) => {
-    setSelectedIndex(index);
-  };
-  console.log("X", horseList);
+function HorseDataList({ horseList }) { 
+  const {currencyDetail} = useCurrencyState();
 
   return (
     <List component="nav" aria-label="secondary mailbox folder">
@@ -38,7 +33,12 @@ function HorseDataList({ horseList }) {
                       variant="body2"
                       color="text.primary"
                     >
-                      {horseData.price}
+                    
+                      {currencyDetail.id === 1
+                        ? currencyDetail.currency +
+                          "" +
+                          (horseData.price * 4000).toFixed(2)
+                        : horseData.price + " " + currencyDetail.currency}
                     </Typography>
                     {" - " + horseData.horse.color}
                   </React.Fragment>
